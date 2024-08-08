@@ -8,5 +8,7 @@ RUN mvn clean package -DskipTests
 FROM amazoncorretto:17.0.12-al2023-headless
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/src /app/src
+COPY --from=build /app/pom.xml /app/pom.xml
 EXPOSE 8081
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Dspring.devtools.restart.enabled=true", "-jar", "app.jar"]
