@@ -1,9 +1,8 @@
 <p-dropdown
-  [style]="{ width: '100%' }"
+  [style]="style"
   [options]="currenciesOptions"
   placeholder="Select"
   [editable]="true"
-  formControlName="currency"
   optionLabel="label"
   optionValue="value"
   [appendTo]="'body'"
@@ -11,4 +10,5 @@
   [virtualScrollItemSize]="virtualScrollItemSize"
   [virtualScrollOptions]="options"
   (onChange)="onSelect($event)"
+  [ngModel]="selectedCurrency?.toUpperCase()"
 />

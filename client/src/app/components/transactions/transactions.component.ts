@@ -16,19 +16,6 @@ export class TransactionsComponent implements OnInit {
 
   public accounts: Account[] | undefined;
 
-  public tt: TransactionWithAccount = {
-    id: 1,
-    account: {
-      id: 1,
-      name: 'Account 1',
-      balance: 100,
-      currency: 'eur',
-    },
-    description: 'Gambit',
-    amount: -10,
-    currency: 'usd',
-  };
-
   ngOnInit(): void {
     // TOOD: get transactions
   }

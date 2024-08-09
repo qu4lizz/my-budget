@@ -5,6 +5,7 @@ import { environment } from './environment/environment';
 import { TransactionFooterLayoutComponent } from './layouts/transaction-footer-layout/transaction-footer-layout.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { CopyrightFooterComponent } from './layouts/copyright-footer/copyright-footer.component';
 
 export const routes: Routes = [
   {
@@ -30,7 +31,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    component: NavigationLayoutComponent,
+    component: CopyrightFooterComponent,
     children: [
       {
         path: 'settings',

@@ -2,17 +2,19 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DropdownModule } from 'primeng/dropdown';
 import { CurrencyService } from '../../../services/currency.service';
 import { ScrollerOptions } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-currency-dropdown',
   standalone: true,
-  imports: [DropdownModule],
+  imports: [DropdownModule, FormsModule],
   templateUrl: './currency-dropdown.component.html',
   styleUrl: './currency-dropdown.component.css',
 })
 export class CurrencyDropdownComponent implements OnInit {
   @Output() onCurrencyChange = new EventEmitter<any>();
   @Input() selectedCurrency: any;
+  @Input() style: any;
 
   constructor(private currencyService: CurrencyService) {}
 
@@ -46,6 +48,7 @@ export class CurrencyDropdownComponent implements OnInit {
   }
 
   onSelect(event: any) {
+    console.log(event);
     this.onCurrencyChange.emit(event);
   }
 

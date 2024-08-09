@@ -5,4 +5,5 @@ export const environment = {
     'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies.json',
   exchangeURL:
     'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/<CURRENCY>.json',
+  client: 'The Client',
 };
