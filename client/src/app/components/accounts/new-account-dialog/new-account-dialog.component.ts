@@ -12,6 +12,7 @@ import { CurrencyService } from '../../../services/currency.service';
 import { ScrollerOptions } from 'primeng/api';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
+import { CurrencyDropdownComponent } from '../../shared/currency-dropdown/currency-dropdown.component';
 
 @Component({
   selector: 'app-new-account-dialog',
@@ -23,6 +24,7 @@ import { ButtonModule } from 'primeng/button';
     InputNumberModule,
     ReactiveFormsModule,
     ButtonModule,
+    CurrencyDropdownComponent,
   ],
   templateUrl: './new-account-dialog.component.html',
   styleUrl: './new-account-dialog.component.css',
@@ -32,18 +34,6 @@ export class NewAccountDialogComponent implements OnInit {
   @Output() dialogVisibleChange = new EventEmitter<boolean>();
 
   public form: FormGroup;
-
-  public currencies: any[] | undefined;
-  public currenciesOptions: any[] | undefined;
-  loading: boolean = false;
-  public virtualScrollItemSize = 40;
-  options: ScrollerOptions = {
-    delay: 100,
-    showLoader: true,
-    lazy: true,
-    onLazyLoad: this.onLazyLoad.bind(this),
-    step: this.virtualScrollItemSize,
-  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,47 +46,14 @@ export class NewAccountDialogComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.currencyService.getAllCurrencies().subscribe({
-      next: (currencies: any) => {
-        this.currencies = Object.keys(currencies).map((key) => {
-          return {
-            label: currencies[key] || key,
-            value: key,
-          };
-        });
-      },
-      error(err) {
-        // TODO: handle error
-        console.log(err);
-      },
-    });
-  }
+  ngOnInit(): void {}
 
   onCurrencySelect(event: DropdownChangeEvent) {
-    console.log(this.form.value);
-  }
-
-  onLazyLoad(event: any) {
-    this.loading = true;
-    console.log(event);
-
-    const { first, last } = event;
-    const currencies = [...(this.currencies ?? [])];
-
-    for (let i = first; i < last; i++) {
-      currencies[i] = this.currencies![i];
-    }
-
-    this.currenciesOptions = currencies;
-    this.loading = false;
+    this.form.setValue({ ...this.form.value, currency: event.value });
   }
 
   getSuffix() {
-    if (
-      this.form.value.currency &&
-      this.currencies?.find((c) => c.value === this.form.value.currency)
-    ) {
+    if (this.form.value.currency) {
       return this.form.value.currency.toUpperCase();
     }
 
@@ -104,7 +61,6 @@ export class NewAccountDialogComponent implements OnInit {
   }
 
   onCancel() {
-    console.log('cancel1');
     this.dialogVisibleChange.emit(false);
   }
 

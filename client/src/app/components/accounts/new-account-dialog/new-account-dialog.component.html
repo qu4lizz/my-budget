@@ -20,21 +20,9 @@
       <tr>
         <td>Currency:</td>
         <td>
-          <p-dropdown
-            [style]="{ width: '100%' }"
-            class="input-width"
-            [options]="currenciesOptions"
-            placeholder="Select"
-            [editable]="true"
-            formControlName="currency"
-            (onChange)="onCurrencySelect($event)"
-            optionLabel="label"
-            optionValue="value"
-            [appendTo]="'body'"
-            [virtualScroll]="true"
-            [virtualScrollItemSize]="virtualScrollItemSize"
-            [virtualScrollOptions]="options"
-          />
+          <app-currency-dropdown
+            (onCurrencyChange)="onCurrencySelect($event)"
+          ></app-currency-dropdown>
         </td>
       </tr>
       <tr>

@@ -1,0 +1,14 @@
+<p-dropdown
+  [style]="{ width: '100%' }"
+  [options]="currenciesOptions"
+  placeholder="Select"
+  [editable]="true"
+  formControlName="currency"
+  optionLabel="label"
+  optionValue="value"
+  [appendTo]="'body'"
+  [virtualScroll]="true"
+  [virtualScrollItemSize]="virtualScrollItemSize"
+  [virtualScrollOptions]="options"
+  (onChange)="onSelect($event)"
+/>
