@@ -1,4 +1,9 @@
-<p-dialog header="New Account" [modal]="true" [(visible)]="dialogVisible">
+<p-dialog
+  header="New Account"
+  [modal]="true"
+  [(visible)]="dialogVisible"
+  (onHide)="onCancel()"
+>
   <form [formGroup]="form">
     <table class="w-full">
       <tr>
@@ -45,12 +50,17 @@
       </tr>
     </table>
     <div class="flex justify-content-end gap-3 pr-3 pt-5">
-      <p-button label="Cancel" [text]="true" severity="secondary" />
+      <p-button
+        label="Cancel"
+        [text]="true"
+        severity="secondary"
+        (onClick)="onCancel()"
+      />
       <p-button
         label="Create Account"
         [outlined]="true"
         [rounded]="true"
-        (onClick)="submitForm()"
+        (onClick)="onSubmitForm()"
       />
     </div>
   </form>

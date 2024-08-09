@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import {
@@ -29,6 +29,7 @@ import { ButtonModule } from 'primeng/button';
 })
 export class NewAccountDialogComponent implements OnInit {
   @Input() dialogVisible: boolean = false;
+  @Output() dialogVisibleChange = new EventEmitter<boolean>();
 
   public form: FormGroup;
 
@@ -102,7 +103,12 @@ export class NewAccountDialogComponent implements OnInit {
     return '';
   }
 
-  submitForm() {
+  onCancel() {
+    console.log('cancel1');
+    this.dialogVisibleChange.emit(false);
+  }
+
+  onSubmitForm() {
     console.log(this.form.value);
     // TODO: submit form
   }

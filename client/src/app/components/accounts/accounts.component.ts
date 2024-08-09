@@ -26,7 +26,8 @@ export class AccountsComponent implements OnInit {
     // TODO: send request to get accounts
   }
 
-  showDialog() {
-    this.dialogVisible = true;
+  showDialog(value: boolean) {
+    console.log(value, this.dialogVisible);
+    this.dialogVisible = value;
   }
 }

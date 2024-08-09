@@ -6,9 +6,10 @@
     label="New account"
     [outlined]="true"
     [rounded]="true"
-    (onClick)="showDialog()"
+    (onClick)="showDialog(true)"
   />
   <app-new-account-dialog
     [dialogVisible]="dialogVisible"
+    (dialogVisibleChange)="showDialog($event)"
   ></app-new-account-dialog>
 </div>
