@@ -1,17 +1,19 @@
 <div
   class="padding-x flex xl:flex-row flex-column align-content-center justify-content-between w-full py-3 border-bottom-3 border-primary mb-5"
 >
-  <div class="text-5xl font-bold text-primary">My Budget</div>
+  <div class="text-5xl font-bold text-primary text-center xl:text-right">
+    My Budget
+  </div>
 
   <ul
     class="list-none select-none p-0 m-0 flex flex-column xl:flex-row xl:gap-2"
   >
     @for (item of items; track $index) {
-    <li class="xl:flex xl:align-items-end">
+    <li class="xl:flex align-items-center xl:align-items-end">
       <a
         pRipple
-        class="hoverable no-underline xl:border-round-top-lg flex align-items-center h-3rem pl-4 font-medium cursor-pointer transition-colors transition-duration-1500"
-        routerLinkActive="surface-0 text-900 fadeindown"
+        class="text-xl hoverable no-underline xl:border-round-top-lg flex align-items-center justify-content-center xl:justify-content-start h-full py-2 xl:py-0 xl:pl-4 font-medium cursor-pointer text-primary-900"
+        routerLinkActive="text-primary zoomindown"
         routerLink="{{ item.routerLink }}"
         ><i class="{{ item.icon }} pr-2"></i><span>{{ item.label }}</span></a
       >

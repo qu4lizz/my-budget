@@ -1,4 +1,4 @@
-@import "primeng/resources/themes/lara-light-indigo/theme.css";
+@import "primeng/resources/themes/luna-amber/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
@@ -12,6 +12,13 @@ body {
 .padding-x {
   padding-left: 25rem;
   padding-right: 25rem;
+}
+
+@media (max-width: 1280px) {
+  .padding-x {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
 }
 
 .wrapper {

@@ -16,8 +16,8 @@ export class HeaderComponent implements OnInit {
     this.items = [
       {
         label: 'Accounts',
-        icon: PrimeIcons.WALLET,
-        routerLink: '/',
+        icon: PrimeIcons.CREDIT_CARD,
+        routerLink: '/accounts',
       },
       {
         label: 'Transactions',
