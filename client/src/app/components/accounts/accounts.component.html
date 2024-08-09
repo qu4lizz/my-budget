@@ -1,0 +1,14 @@
+<div class="padding-x">
+  @for (account of accounts; track account.id) {
+  <app-single-account [account]="account"></app-single-account>
+  }
+  <p-button
+    label="New account"
+    [outlined]="true"
+    [rounded]="true"
+    (onClick)="showDialog()"
+  />
+  <app-new-account-dialog
+    [dialogVisible]="dialogVisible"
+  ></app-new-account-dialog>
+</div>

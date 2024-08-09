@@ -3,9 +3,13 @@
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
 
-html,
 body {
   margin: 0;
   padding: 0;
   height: 100vh;
+}
+
+.padding-x {
+  padding-left: 20%;
+  padding-right: 20%;
 }

@@ -1,0 +1,57 @@
+<p-dialog header="New Account" [modal]="true" [(visible)]="dialogVisible">
+  <form [formGroup]="form">
+    <table class="w-full">
+      <tr>
+        <td>Name:</td>
+        <td>
+          <input
+            [style]="{ width: '20rem' }"
+            type="text"
+            pInputText
+            formControlName="name"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>Currency:</td>
+        <td>
+          <p-dropdown
+            [style]="{ width: '100%' }"
+            class="input-width"
+            [options]="currenciesOptions"
+            placeholder="Select"
+            [editable]="true"
+            formControlName="currency"
+            (onChange)="onCurrencySelect($event)"
+            optionLabel="label"
+            optionValue="value"
+            [appendTo]="'body'"
+            [virtualScroll]="true"
+            [virtualScrollItemSize]="virtualScrollItemSize"
+            [virtualScrollOptions]="options"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>Balance:</td>
+        <td>
+          <p-inputNumber
+            [inputStyle]="{ width: '20rem' }"
+            minFractionDigits="2"
+            [suffix]="getSuffix()"
+            formControlName="balance"
+          />
+        </td>
+      </tr>
+    </table>
+    <div class="flex justify-content-end gap-3 pr-3 pt-5">
+      <p-button label="Cancel" [text]="true" severity="secondary" />
+      <p-button
+        label="Create Account"
+        [outlined]="true"
+        [rounded]="true"
+        (onClick)="submitForm()"
+      />
+    </div>
+  </form>
+</p-dialog>
