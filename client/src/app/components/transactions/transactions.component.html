@@ -1,0 +1,5 @@
+<div class="padding-x">
+  @for(transaction of transactions; track transaction.id) {
+  <app-single-transaction [transaction]="transaction"></app-single-transaction>
+  }
+</div>

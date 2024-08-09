@@ -3,6 +3,7 @@ import { NavigationLayoutComponent } from './layouts/navigation-layout/navigatio
 import { AccountsComponent } from './components/accounts/accounts.component';
 import { environment } from './environment/environment';
 import { TransactionFooterLayoutComponent } from './layouts/transaction-footer-layout/transaction-footer-layout.component';
+import { TransactionsComponent } from './components/transactions/transactions.component';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,11 @@ export const routes: Routes = [
         path: 'accounts',
         title: `Accounts | ${environment.appName}`,
         component: AccountsComponent,
+      },
+      {
+        path: 'transactions',
+        title: `Transactions | ${environment.appName}`,
+        component: TransactionsComponent,
       },
     ],
   },

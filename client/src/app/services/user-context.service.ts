@@ -7,7 +7,7 @@ export class UserContextService implements OnInit {
   constructor() {}
 
   public availableBalance: number = 0;
-  public defaultCurrency: string = '';
+  public defaultCurrency: string = 'eur';
 
   ngOnInit(): void {
     // TODO: get balance

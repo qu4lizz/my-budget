@@ -11,4 +11,9 @@ export class CurrencyService {
   public getAllCurrencies() {
     return this.http.get(environment.currenciesURL);
   }
+
+  public getExchangeRates(from: string) {
+    const url = environment.exchangeURL.replace('<CURRENCY>', from);
+    return this.http.get(url);
+  }
 }
