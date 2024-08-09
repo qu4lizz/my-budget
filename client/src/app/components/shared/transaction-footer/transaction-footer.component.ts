@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { UserContextService } from '../../../services/user-context.service';
+import { NewTransactionDialogComponent } from '../../transactions/new-transaction-dialog/new-transaction-dialog.component';
 
 @Component({
   selector: 'app-transaction-footer',
   standalone: true,
-  imports: [ButtonModule],
+  imports: [ButtonModule, NewTransactionDialogComponent],
   templateUrl: './transaction-footer.component.html',
   styleUrl: './transaction-footer.component.css',
 })

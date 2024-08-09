@@ -27,7 +27,6 @@ export class AccountsComponent implements OnInit {
   }
 
   showDialog(value: boolean) {
-    console.log(value, this.dialogVisible);
     this.dialogVisible = value;
   }
 }
