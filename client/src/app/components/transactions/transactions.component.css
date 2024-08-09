@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
+.padding-x-adjusted {
+  padding-left: 25rem;
+  padding-right: 10rem;
+}
+
+.dropdown {
+  width: 15rem;
+  padding-left: 2rem;
+  display: flex;
+  align-items: center;
+}

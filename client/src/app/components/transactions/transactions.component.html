@@ -1,5 +1,20 @@
-<div class="padding-x">
-  @for(transaction of transactions; track transaction.id) {
-  <app-single-transaction [transaction]="transaction"></app-single-transaction>
-  }
+<div class="padding-x-adjusted flex flex-row w-full">
+  <div class="flex flex-column flex-grow-1">
+    @for(transaction of transactions; track transaction.id) {
+    <app-single-transaction
+      [transaction]="transaction"
+    ></app-single-transaction>
+    }
+    <app-single-transaction [transaction]="tt"></app-single-transaction>
+  </div>
+  <div class="dropdown">
+    <p-dropdown
+      [options]="accounts"
+      placeholder="All Accounts"
+      [editable]="true"
+      optionLabel="name"
+      optionValue="id"
+      (onChange)="onAccountSelect($event)"
+    ></p-dropdown>
+  </div>
 </div>
