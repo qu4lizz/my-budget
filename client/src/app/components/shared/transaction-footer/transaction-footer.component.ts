@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { UserContextService } from '../../../services/user-context.service';
 
 @Component({
   selector: 'app-transaction-footer',
@@ -9,11 +10,9 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './transaction-footer.component.css',
 })
 export class TransactionFooterComponent implements OnInit {
-  constructor() {}
+  constructor(public userContext: UserContextService) {}
 
   public transactionDialogVisible: boolean = false;
-  public availableBalance: number = 0;
-  public defaultCurrency: string = '';
 
   ngOnInit(): void {
     // TODO: get balance

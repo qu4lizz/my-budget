@@ -1,9 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class UserContextService {
+export class UserContextService implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  public availableBalance: number = 0;
+  public defaultCurrency: string = '';
+
+  ngOnInit(): void {
+    // TODO: get balance
+  }
 }
