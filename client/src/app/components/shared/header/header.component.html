@@ -1,19 +1,21 @@
-<div class="padding-x flex xl:flex-row flex-column align-content-center justify-content-between w-full pb-3 pt-5 border-bottom-3 border-primary mb-5">
-    <div class="text-5xl font-bold text-primary">My Budget</div>
+<div
+  class="padding-x flex xl:flex-row flex-column align-content-center justify-content-between w-full py-3 border-bottom-3 border-primary mb-5"
+>
+  <div class="text-5xl font-bold text-primary">My Budget</div>
 
-    <ul
-      class="list-none select-none p-0 m-0 flex flex-column xl:flex-row xl:gap-2"
-    >
+  <ul
+    class="list-none select-none p-0 m-0 flex flex-column xl:flex-row xl:gap-2"
+  >
     @for (item of items; track $index) {
-      <li class="xl:flex xl:align-items-end">
-        <a
-          pRipple
-          class="hoverable no-underline p-ripple p-element xl:border-round-top-lg flex align-items-center h-3rem px-4 font-medium cursor-pointer transition-colors transition-duration-1500"
-          routerLinkActive="surface-0 text-900 fadeindown"
-          routerLink={{item.routerLink}}
-          ><i class="{{item.icon}} pr-2"></i><span>{{item.label}}</span></a
-        >
-      </li>
+    <li class="xl:flex xl:align-items-end">
+      <a
+        pRipple
+        class="hoverable no-underline p-ripple p-element xl:border-round-top-lg flex align-items-center h-3rem pl-4 font-medium cursor-pointer transition-colors transition-duration-1500"
+        routerLinkActive="surface-0 text-900 fadeindown"
+        routerLink="{{ item.routerLink }}"
+        ><i class="{{ item.icon }} pr-2"></i><span>{{ item.label }}</span></a
+      >
+    </li>
     }
-    </ul>
+  </ul>
 </div>

@@ -2,12 +2,13 @@ import { Routes } from '@angular/router';
 import { NavigationLayoutComponent } from './layouts/navigation-layout/navigation-layout.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
 import { environment } from './environment/environment';
+import { TransactionFooterLayoutComponent } from './layouts/transaction-footer-layout/transaction-footer-layout.component';
 
 export const routes: Routes = [
   {
     path: '',
     title: 'Home',
-    component: NavigationLayoutComponent,
+    component: TransactionFooterLayoutComponent,
     children: [
       { path: '', redirectTo: 'accounts', pathMatch: 'full' },
       {
