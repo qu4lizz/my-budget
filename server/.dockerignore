@@ -1,5 +1,4 @@
 .idea
-.mvn
 .dockerignore
 Dockerfile
 .gitignore
