@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { UserContextService } from '../../../services/user-context.service';
 import { NewTransactionDialogComponent } from '../../transactions/new-transaction-dialog/new-transaction-dialog.component';
+import { AccountService } from '../../../services/account.service';
+import { UserContextService } from '../../../services/user-context.service';
 
 @Component({
   selector: 'app-transaction-footer',
@@ -11,12 +12,21 @@ import { NewTransactionDialogComponent } from '../../transactions/new-transactio
   styleUrl: './transaction-footer.component.css',
 })
 export class TransactionFooterComponent implements OnInit {
-  constructor(public userContext: UserContextService) {}
+  constructor(
+    public accountService: AccountService,
+    public userContext: UserContextService
+  ) {}
 
   public transactionDialogVisible: boolean = false;
 
+  public availableBalance: number | undefined;
+
   ngOnInit(): void {
-    // TODO: get balance
+    this.accountService.getAvailableBalance().subscribe({
+      next: (data: any) => {
+        this.availableBalance = data.availableBalance;
+      },
+    });
   }
 
   showTransactionDialog(value: boolean) {

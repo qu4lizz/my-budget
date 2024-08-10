@@ -18,4 +18,8 @@ export class AccountService {
   public getAccounts(query: string) {
     return this.http.get(baseUrl + query);
   }
+
+  public getAvailableBalance() {
+    return this.http.get(baseUrl + '/available-balance');
+  }
 }
