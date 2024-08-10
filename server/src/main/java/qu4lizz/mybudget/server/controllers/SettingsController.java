@@ -26,4 +26,9 @@ public class SettingsController {
 
         return new DefaultCurrency(defaultCurrency);
     }
+
+    @PostMapping("/delete-all-data")
+    public void deleteAllData() {
+        settingsService.deleteAllData();
+    }
 }

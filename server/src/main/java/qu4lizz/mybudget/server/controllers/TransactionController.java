@@ -1,6 +1,7 @@
 package qu4lizz.mybudget.server.controllers;
 
 import jakarta.validation.Valid;
+import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class TransactionController {
     }
 
     @PostMapping
-    public void createTransaction(@Valid @RequestBody CreateTransactionRequest request) {
+    public void createTransaction(@Valid @RequestBody CreateTransactionRequest request) throws BadRequestException {
         transactionService.createTransaction(request);
     }
 }
