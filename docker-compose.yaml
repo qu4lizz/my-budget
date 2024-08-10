@@ -1,13 +1,17 @@
-version: '3.9'
 services:
-  postgresql:
+  postgres:
     image: 'postgres:16.3-alpine3.18'
     ports:
       - '5433:5432'
     volumes:
       - postgres-data:/var/lib/postgres
+      - ./database/mybudget.sql:/docker-entrypoint-initdb.d/init-schema.sql
     env_file:
       - ./database/.env
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mybudget
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
@@ -16,21 +20,20 @@ services:
   server:
     build: ./server
     ports:
-      - '8080:8080'
+      - '8081:8080'
     env_file:
       - ./server/.env
     depends_on:
       postgres:
         condition: service_healthy
-  frontend:
+  client:
     build: ./client
     ports:
       - '4200:4200'
     volumes:
       - ./client/src:/opt/client/src
     depends_on:
-      - 'backend'
+      - 'server'
 
 volumes:
   postgres-data:
-  logs:

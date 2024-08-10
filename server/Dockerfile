@@ -10,5 +10,6 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 COPY --from=build /app/src /app/src
 COPY --from=build /app/pom.xml /app/pom.xml
+COPY .env /app/.env
 EXPOSE 8081
 ENTRYPOINT ["java", "-Dspring.devtools.restart.enabled=true", "-jar", "app.jar"]

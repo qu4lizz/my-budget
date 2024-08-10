@@ -1,41 +1,53 @@
 package qu4lizz.mybudget.server.models.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.proxy.HibernateProxy;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
+@Getter
+@Setter
+@ToString
 @Entity
-@Data
-@Table(name = "transaction", schema = "public", catalog = "my-budget")
+@Table(name = "transaction", schema = "public")
 public class TransactionEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
-    @Basic
-    @Column(name = "id_account")
-    private Integer idAccount;
-    @Basic
-    @Column(name = "description")
+
+    @Column(name = "description", nullable = false, length = Integer.MAX_VALUE)
     private String description;
-    @Basic
-    @Column(name = "amount")
-    private String amount;
-    @Basic
-    @Column(name = "currency")
+
+    @Column(name = "amount", nullable = false, precision = 12, scale = 2)
+    private BigDecimal amount;
+
+    @Column(name = "currency", nullable = false, length = 15)
     private String currency;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @JoinColumn(name = "id_account", nullable = false)
+    @ToString.Exclude
+    private AccountEntity idAccount;
+
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) return false;
         TransactionEntity that = (TransactionEntity) o;
-        return Objects.equals(id, that.id);
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
+    public final int hashCode() {
+        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
 }
