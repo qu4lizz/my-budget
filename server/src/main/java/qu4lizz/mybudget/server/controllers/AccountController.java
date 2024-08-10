@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import qu4lizz.mybudget.server.models.entities.AccountEntity;
-import qu4lizz.mybudget.server.models.requests.CreateNewAccountRequest;
+import qu4lizz.mybudget.server.models.requests.CreateAccountRequest;
 import qu4lizz.mybudget.server.models.responses.BalanceResponse;
 import qu4lizz.mybudget.server.services.AccountService;
 
@@ -26,7 +26,7 @@ public class AccountController {
     }
 
     @PostMapping
-    public void create(@Valid @RequestBody CreateNewAccountRequest request) {
+    public void create(@Valid @RequestBody CreateAccountRequest request) {
         accountService.create(request);
     }
 

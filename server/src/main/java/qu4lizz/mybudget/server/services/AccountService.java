@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import qu4lizz.mybudget.server.models.entities.AccountEntity;
 import qu4lizz.mybudget.server.models.json.CurrencyExchangeRates;
-import qu4lizz.mybudget.server.models.requests.CreateNewAccountRequest;
+import qu4lizz.mybudget.server.models.requests.CreateAccountRequest;
 import qu4lizz.mybudget.server.repositories.AccountRepository;
 
 import java.math.BigDecimal;
@@ -26,7 +26,7 @@ public class AccountService {
         this.modelMapper = modelMapper;
     }
 
-    public void create(CreateNewAccountRequest request) {
+    public void create(CreateAccountRequest request) {
         AccountEntity entity = modelMapper.map(request, AccountEntity.class);
 
         accountRepository.save(entity);

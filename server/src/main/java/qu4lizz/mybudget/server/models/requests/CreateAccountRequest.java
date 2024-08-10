@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Data
-public class CreateNewAccountRequest {
+public class CreateAccountRequest {
     @Size(max = 40, message = "Name string too long")
     private String name;
     @NotNull(message = "Balance is required")

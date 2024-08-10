@@ -33,7 +33,7 @@ public class TransactionEntity {
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "id_account", nullable = false)
     @ToString.Exclude
-    private AccountEntity idAccount;
+    private AccountEntity account;
 
     @Override
     public final boolean equals(Object o) {
