@@ -1,10 +1,10 @@
 package qu4lizz.mybudget.server.controllers;
 
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
+import qu4lizz.mybudget.server.models.entities.AccountEntity;
 import qu4lizz.mybudget.server.models.requests.CreateNewAccountRequest;
 import qu4lizz.mybudget.server.services.AccountService;
 
@@ -17,8 +17,14 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    @GetMapping
+    public Page<AccountEntity> getAccounts(Pageable pageable) {
+        return accountService.getAccounts(pageable);
+    }
+
     @PostMapping
     public void create(@Valid @RequestBody CreateNewAccountRequest request) {
         accountService.create(request);
     }
+
 }
