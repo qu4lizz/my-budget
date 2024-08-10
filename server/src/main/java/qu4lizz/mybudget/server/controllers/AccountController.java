@@ -30,7 +30,7 @@ public class AccountController {
         accountService.create(request);
     }
 
-    @GetMapping
+    @GetMapping("/available-balance")
     public BalanceResponse getAvailableAccumulatedBalance() {
         BigDecimal balance = accountService.getAvailableAccumulatedBalance();
         return new BalanceResponse(balance);

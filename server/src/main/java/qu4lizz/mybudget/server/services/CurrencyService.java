@@ -3,6 +3,7 @@ package qu4lizz.mybudget.server.services;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import qu4lizz.mybudget.server.models.json.CurrencyExchangeRates;
 import qu4lizz.mybudget.server.models.json.CurrencyRates;
 
 @Service
@@ -18,9 +19,16 @@ public class CurrencyService {
         this.restTemplate = new RestTemplate();
     }
 
-    public CurrencyRates getCurrencyRates(String currency) {
-        String url = currenciesURL.replace("<CURRENCY>", currency);
+    public CurrencyExchangeRates getCurrencyRates(String currency) {
+        String url = exchangeURL.replace("<CURRENCY>", currency);
 
-        return restTemplate.getForObject(url, CurrencyRates.class);
+        return restTemplate.getForObject(url, CurrencyExchangeRates.class);
+    }
+
+    public Boolean isValidCurrency(String currency) {
+        CurrencyRates rates = restTemplate.getForObject(currenciesURL, CurrencyRates.class);
+
+        assert rates != null;
+        return rates.getRates().containsKey(currency);
     }
 }

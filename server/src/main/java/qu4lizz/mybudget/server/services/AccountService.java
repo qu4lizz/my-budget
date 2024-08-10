@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import qu4lizz.mybudget.server.models.entities.AccountEntity;
-import qu4lizz.mybudget.server.models.json.CurrencyRates;
+import qu4lizz.mybudget.server.models.json.CurrencyExchangeRates;
 import qu4lizz.mybudget.server.models.requests.CreateNewAccountRequest;
 import qu4lizz.mybudget.server.repositories.AccountRepository;
 
@@ -44,13 +44,13 @@ public class AccountService {
         if (!accounts.isEmpty()) {
             String defaultCurrency = settingsService.getDefaultCurrency();
 
-            CurrencyRates currencyRates = currencyService.getCurrencyRates(defaultCurrency);
+            CurrencyExchangeRates currencyExchangeRates = currencyService.getCurrencyRates(defaultCurrency);
 
             for(var account : accounts) {
                 if (account.getCurrency().equals(defaultCurrency)) {
                     accumulatedBalance = accumulatedBalance.add(account.getBalance());
                 } else {
-                    BigDecimal exchangeRate = currencyRates.getCurrencyRates().get(account.getCurrency());
+                    BigDecimal exchangeRate = currencyExchangeRates.getCurrencyRates().get(account.getCurrency());
                     accumulatedBalance = accumulatedBalance.add(exchangeRate.multiply(account.getBalance()));
                 }
             }

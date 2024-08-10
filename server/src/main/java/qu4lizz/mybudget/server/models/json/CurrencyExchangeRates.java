@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 @Data
-public class CurrencyRates {
-    private Map<String, BigDecimal> rates;
+public class CurrencyExchangeRates {
+    private String date;
+    private Map<String, BigDecimal> currencyRates;
 }
