@@ -19,14 +19,8 @@ export class TransactionFooterComponent implements OnInit {
 
   public transactionDialogVisible: boolean = false;
 
-  public availableBalance: number | undefined;
-
   ngOnInit(): void {
-    this.accountService.getAvailableBalance().subscribe({
-      next: (data: any) => {
-        this.availableBalance = data.availableBalance;
-      },
-    });
+    this.accountService.getAvailableBalance();
   }
 
   showTransactionDialog(value: boolean) {

@@ -11,6 +11,8 @@ const baseUrl = environment.api_url + '/accounts';
 export class AccountService {
   constructor(private http: HttpClient) {}
 
+  public availableBalance: number = 0;
+
   public createAccount(account: Account) {
     return this.http.post(baseUrl, account);
   }
@@ -20,6 +22,8 @@ export class AccountService {
   }
 
   public getAvailableBalance() {
-    return this.http.get(baseUrl + '/available-balance');
+    this.http.get(baseUrl + '/available-balance').subscribe((data: any) => {
+      this.availableBalance = data.availableBalance;
+    });
   }
 }

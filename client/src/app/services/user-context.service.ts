@@ -12,10 +12,6 @@ export class UserContextService {
 
   public defaultCurrency: string = 'eur';
 
-  ngOnInit(): void {
-    // TODO: get balance
-  }
-
   public getDefaultCurrency() {
     this.http.get(baseUrl + '/default-currency').subscribe((data: any) => {
       this.defaultCurrency = data.defaultCurrency;
@@ -28,5 +24,9 @@ export class UserContextService {
       .subscribe({
         next: (data: any) => (this.defaultCurrency = data.defaultCurrency),
       });
+  }
+
+  public deleteAllData() {
+    this.http.delete(baseUrl + '/delete-all-data');
   }
 }
