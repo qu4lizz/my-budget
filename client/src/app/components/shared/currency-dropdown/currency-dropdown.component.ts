@@ -48,7 +48,6 @@ export class CurrencyDropdownComponent implements OnInit {
   }
 
   onSelect(event: any) {
-    console.log(event);
     this.onCurrencyChange.emit(event);
   }
 

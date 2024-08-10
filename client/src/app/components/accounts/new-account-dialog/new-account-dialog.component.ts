@@ -13,6 +13,8 @@ import { ScrollerOptions } from 'primeng/api';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { CurrencyDropdownComponent } from '../../shared/currency-dropdown/currency-dropdown.component';
+import { Account } from '../../../interfaces/Account';
+import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-new-account-dialog',
@@ -32,12 +34,14 @@ import { CurrencyDropdownComponent } from '../../shared/currency-dropdown/curren
 export class NewAccountDialogComponent implements OnInit {
   @Input() dialogVisible: boolean = false;
   @Output() dialogVisibleChange = new EventEmitter<boolean>();
+  @Output() refreshData = new EventEmitter();
 
   public form: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    private currencyService: CurrencyService
+    private currencyService: CurrencyService,
+    private accountService: AccountService
   ) {
     this.form = this.formBuilder.group({
       name: [null, Validators.required],
@@ -65,7 +69,18 @@ export class NewAccountDialogComponent implements OnInit {
   }
 
   onSubmitForm() {
-    console.log(this.form.value);
-    // TODO: submit form
+    const account: Account = { ...this.form.value };
+
+    this.accountService.createAccount(account).subscribe({
+      next: () => {
+        this.refreshData.emit();
+      },
+      error(err) {
+        console.log(err);
+      },
+      complete: () => {
+        this.dialogVisibleChange.emit(false);
+      },
+    });
   }
 }

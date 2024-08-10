@@ -1,15 +1,30 @@
 <div class="padding-x">
+  @if (loading) {
+  <app-loading-spinner></app-loading-spinner>
+  } @else { @if (accounts.length > 0) {
+  <p-paginator
+    (onPageChange)="onPageChange($event)"
+    [rows]="size"
+    [totalRecords]="totalRecords"
+    [rowsPerPageOptions]="[10, 20, 30]"
+  />
   @for (account of accounts; track account.id) {
   <app-single-account [account]="account"></app-single-account>
+  } } @else {
+  <div class="text-3xl text-primary font-bold">No accounts found.</div>
   }
-  <p-button
-    label="New account"
-    [outlined]="true"
-    [rounded]="true"
-    (onClick)="showDialog(true)"
-  />
+  <div class="mt-4">
+    <p-button
+      label="New account"
+      [outlined]="true"
+      [rounded]="true"
+      (onClick)="showDialog(true)"
+    />
+  </div>
   <app-new-account-dialog
     [dialogVisible]="dialogVisible"
     (dialogVisibleChange)="showDialog($event)"
+    (refreshData)="loadData()"
   ></app-new-account-dialog>
+  }
 </div>

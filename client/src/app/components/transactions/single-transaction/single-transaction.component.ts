@@ -25,18 +25,17 @@ export class SingleTransactionComponent implements OnInit {
   }
 
   getExchangedAmount() {
-    console.log('call');
     this.currencyService
-      .getExchangeRates(this.transaction!.currency)
-      .subscribe({
-        next: (rates: any) => {
-          this.exchangedValue =
-            this.transaction!.amount *
-            rates[this.transaction!.currency][this.userContext.defaultCurrency];
-        },
-        error(err: any) {
-          return 'error';
-        },
+      .getExchangedAmount(
+        this.transaction!.currency,
+        this.userContext.defaultCurrency,
+        this.transaction!.amount
+      )
+      .then((value) => {
+        this.exchangedValue = value;
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 }

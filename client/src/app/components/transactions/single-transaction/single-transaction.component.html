@@ -8,15 +8,16 @@
   <div class="flex flex-column gap-1">
     @if (transaction?.currency === userContext.defaultCurrency) {
     <div class="text-2xl">
-      {{ transaction?.amount }} {{ transaction?.currency?.toUpperCase() }}
+      {{ transaction?.amount?.toFixed(2) }}
+      {{ transaction?.currency?.toUpperCase() }}
     </div>
     } @else {
     <div class="text-2xl text-right">
       {{ exchangedValue?.toFixed(2) }}
-      {{ transaction?.account?.currency?.toUpperCase() }}
+      {{ userContext.defaultCurrency.toUpperCase() }}
     </div>
     <div class="text-xl text-right">
-      {{ transaction?.amount }}
+      {{ transaction?.amount?.toFixed(2) }}
       {{ transaction?.currency?.toUpperCase() }}
     </div>
     }
