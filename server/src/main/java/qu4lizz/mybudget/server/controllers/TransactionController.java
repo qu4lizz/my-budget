@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import qu4lizz.mybudget.server.models.entities.TransactionEntity;
 import qu4lizz.mybudget.server.models.requests.CreateTransactionRequest;
-import qu4lizz.mybudget.server.services.AccountService;
 import qu4lizz.mybudget.server.services.TransactionService;
 
 @RestController

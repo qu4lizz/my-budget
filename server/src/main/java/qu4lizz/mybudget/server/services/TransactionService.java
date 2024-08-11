@@ -28,7 +28,7 @@ public class TransactionService {
     }
 
     public Page<TransactionEntity> getTransactionsByAccountId(Integer id, Pageable pageable) {
-        return transactionRepository.findAllByIdAccount(id, pageable);
+        return transactionRepository.findAllByAccount_Id(id, pageable);
     }
 
     public void createTransaction(CreateTransactionRequest request) throws BadRequestException {
@@ -41,7 +41,7 @@ public class TransactionService {
         TransactionEntity transaction = modelMapper.map(request, TransactionEntity.class);
         transactionRepository.save(transaction);
 
-        account.setBalance(account.getBalance().subtract(request.getAmount()));
+        account.setBalance(account.getBalance().add(request.getAmount()));
         accountRepository.save(account);
     }
 }

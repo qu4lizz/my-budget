@@ -10,6 +10,7 @@ import qu4lizz.mybudget.server.models.responses.BalanceResponse;
 import qu4lizz.mybudget.server.services.AccountService;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -24,6 +25,9 @@ public class AccountController {
     public Page<AccountEntity> getAccounts(Pageable pageable) {
         return accountService.getAccounts(pageable);
     }
+
+    @GetMapping("/all")
+    public List<AccountEntity> getAllAcounts() { return accountService.getAllAccounts();}
 
     @PostMapping
     public void create(@Valid @RequestBody CreateAccountRequest request) {

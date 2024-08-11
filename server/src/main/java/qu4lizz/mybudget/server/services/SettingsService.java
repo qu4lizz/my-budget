@@ -12,6 +12,8 @@ public class SettingsService {
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
 
+    private final Integer ID = 1;
+
     public SettingsService(SettingsRepository settingsRepository, AccountRepository accountRepository, TransactionRepository transactionRepository) {
         this.settingsRepository = settingsRepository;
         this.accountRepository = accountRepository;
@@ -19,14 +21,14 @@ public class SettingsService {
     }
 
     public String getDefaultCurrency() {
-        SettingsEntity entity = settingsRepository.findById(0).orElse(null);
+        SettingsEntity entity = settingsRepository.findById(ID).orElse(null);
 
         assert entity != null;
         return entity.getDefaultCurrency();
     }
 
     public void setDefaultCurrency(String currency) {
-        SettingsEntity entity = settingsRepository.findById(0).orElse(null);
+        SettingsEntity entity = settingsRepository.findById(ID).orElse(null);
         assert entity != null;
         entity.setDefaultCurrency(currency);
         settingsRepository.save(entity);

@@ -8,15 +8,15 @@ import qu4lizz.mybudget.server.models.json.CurrencyRates;
 
 @Service
 public class CurrencyService {
-    @Value("url.exchange")
+    @Value("${url.exchange}")
     private String exchangeURL;
-    @Value("url.currencies")
+    @Value("${url.currencies}")
     private String currenciesURL;
 
     private final RestTemplate restTemplate;
 
-    public CurrencyService() {
-        this.restTemplate = new RestTemplate();
+    public CurrencyService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     public CurrencyExchangeRates getCurrencyRates(String currency) {
@@ -28,7 +28,6 @@ public class CurrencyService {
     public Boolean isValidCurrency(String currency) {
         CurrencyRates rates = restTemplate.getForObject(currenciesURL, CurrencyRates.class);
 
-        assert rates != null;
-        return rates.getRates().containsKey(currency);
+        return rates != null && rates.getRates().containsKey(currency);
     }
 }

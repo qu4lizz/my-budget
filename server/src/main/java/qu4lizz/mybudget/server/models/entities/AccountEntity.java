@@ -28,7 +28,7 @@ public class AccountEntity {
     @Column(name = "currency", nullable = false, length = 15)
     private String currency;
 
-    @OneToMany(mappedBy = "idAccount")
+    @OneToMany(mappedBy = "account")
     @ToString.Exclude
     private List<TransactionEntity> transactions;
 

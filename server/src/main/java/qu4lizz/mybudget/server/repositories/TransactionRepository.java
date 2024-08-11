@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import qu4lizz.mybudget.server.models.entities.TransactionEntity;
 
 public interface TransactionRepository extends JpaRepository<TransactionEntity, Integer> {
-    Page<TransactionEntity> findAllByIdAccount(Integer idAccount, Pageable pageable);
+    Page<TransactionEntity> findAllByAccount_Id(Integer idAccount, Pageable pageable);
 
     @Modifying
     @Transactional
