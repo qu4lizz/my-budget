@@ -38,4 +38,17 @@ public class SettingsService {
         transactionRepository.truncateTable();
         accountRepository.truncateTable();
     }
+
+    public Boolean shouldMigrate() {
+        SettingsEntity entity = settingsRepository.findById(ID).orElse(null);
+        assert entity != null;
+        return !entity.getMigrated();
+    }
+
+    public void setMigrationTrue() {
+        SettingsEntity entity = settingsRepository.findById(ID).orElse(null);
+        assert entity != null;
+        entity.setMigrated(true);
+        settingsRepository.save(entity);
+    }
 }

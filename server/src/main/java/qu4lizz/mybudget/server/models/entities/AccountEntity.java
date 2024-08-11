@@ -5,13 +5,13 @@ import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
 @ToString
 @Entity
+@NoArgsConstructor
 @Table(name = "account", schema = "public")
 public class AccountEntity {
     @Id
@@ -27,6 +27,12 @@ public class AccountEntity {
 
     @Column(name = "currency", nullable = false, length = 15)
     private String currency;
+
+    public AccountEntity(String name, BigDecimal balance, String currency) {
+        this.name = name;
+        this.balance = balance;
+        this.currency = currency;
+    }
 
     @Override
     public final boolean equals(Object o) {

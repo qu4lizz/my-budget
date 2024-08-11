@@ -13,6 +13,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @Entity
+@NoArgsConstructor
 @Table(name = "transaction", schema = "public")
 public class TransactionEntity {
     @Id
@@ -34,6 +35,13 @@ public class TransactionEntity {
     @JoinColumn(name = "id_account", nullable = false)
     @ToString.Exclude
     private AccountEntity account;
+
+    public TransactionEntity(String description, BigDecimal amount, String currency, AccountEntity account) {
+        this.description = description;
+        this.amount = amount;
+        this.currency = currency;
+        this.account = account;
+    }
 
     @Override
     public final boolean equals(Object o) {

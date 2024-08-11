@@ -8,10 +8,12 @@ import java.math.BigDecimal;
 
 @Data
 public class CreateAccountRequest {
-    @Size(max = 40, message = "Name string too long")
+    @NotNull
+    @Size(max = 40, message = "Name is too long")
     private String name;
     @NotNull(message = "Balance is required")
     private BigDecimal balance;
-    @Size(max = 15, message = "Currency string too long")
+    @NotNull
+    @Size(max = 15, message = "Currency is too long")
     private String currency;
 }
