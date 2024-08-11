@@ -27,7 +27,7 @@ public class AccountController {
     }
 
     @GetMapping("/all")
-    public List<AccountEntity> getAllAcounts() { return accountService.getAllAccounts();}
+    public List<AccountEntity> getAllAccounts() { return accountService.getAllAccounts();}
 
     @PostMapping
     public void create(@Valid @RequestBody CreateAccountRequest request) {

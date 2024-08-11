@@ -29,7 +29,7 @@ public class TransactionEntity {
     @Column(name = "currency", nullable = false, length = 15)
     private String currency;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "id_account", nullable = false)
     @ToString.Exclude
