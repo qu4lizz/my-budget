@@ -51,11 +51,9 @@ export class AccountsComponent implements OnInit {
       next: (data: any) => {
         this.accounts = data.content;
         this.totalRecords = data.totalElements;
-        this.loading = false;
       },
-      error: (err: any) => {
-        this.loading = false;
-      },
+      error: (err: any) => {},
+      complete: () => (this.loading = false),
     });
   }
 

@@ -1,10 +1,21 @@
+@if (loading) {
+<app-loading-spinner></app-loading-spinner>
+} @else {
 <div class="padding-x-transactions flex flex-row w-full">
   <div class="flex flex-column flex-grow-1">
+    @if (transactions.length > 0) {
+    <p-paginator
+      styleClass="surface-0"
+      (onPageChange)="onPageChange($event)"
+      [rows]="size"
+      [totalRecords]="totalRecords"
+      [rowsPerPageOptions]="[1, 20, 30]"
+    />
     @for(transaction of transactions; track transaction.id) {
     <app-single-transaction
       [transaction]="transaction"
     ></app-single-transaction>
-    } @if (transactions.length === 0) {
+    } } @if (transactions.length === 0) {
     <div class="text-3xl text-primary font-bold">No transactions found.</div>
     }
   </div>
@@ -17,7 +28,7 @@
       optionValue="id"
       (onChange)="onAccountSelect($event)"
       [showClear]="true"
-      (onClear)="onAccountClear()"
     ></p-dropdown>
   </div>
 </div>
+}

@@ -1,3 +1,6 @@
-.full-height {
-  height: calc(100vh - 8rem - 96px);
+.center-absolute {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

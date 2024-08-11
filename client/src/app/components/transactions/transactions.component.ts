@@ -7,11 +7,18 @@ import { TransactionService } from '../../services/transaction.service';
 import { AccountService } from '../../services/account.service';
 import { Subscription } from 'rxjs';
 import { TransactionRefreshService } from '../../services/transaction-refresh.service';
+import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [SingleTransactionComponent, DropdownModule],
+  imports: [
+    SingleTransactionComponent,
+    DropdownModule,
+    LoadingSpinnerComponent,
+    PaginatorModule,
+  ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
 })
@@ -25,6 +32,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   public totalRecords: number = 0;
 
   public loading: boolean = true;
+
+  private accountId?: number;
 
   private refreshSubscription!: Subscription;
 
@@ -55,31 +64,36 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   loadTransactions() {
     const query = `?page=${this.page}&size=${this.size}`;
-    this.transactionService.getTransactions(query).subscribe({
-      next: (data: any) => {
-        this.transactions = data.content;
-        this.totalRecords = data.totalElements;
-      },
-      complete: () => {
-        this.loading = false;
-      },
-    });
-  }
 
-  onAccountSelect(event: any) {
-    this.page = 0;
-    const query = `?page=${this.page}&size=${this.size}`;
-    this.transactionService
-      .getTransactionsByAccount(query, event.value)
-      .subscribe({
+    if (this.accountId) {
+      // for selected account
+      this.transactionService
+        .getTransactionsByAccount(query, this.accountId)
+        .subscribe({
+          next: (data: any) => {
+            this.transactions = data.content;
+            this.totalRecords = data.totalElements;
+          },
+        });
+    } else {
+      this.transactionService.getTransactions(query).subscribe({
         next: (data: any) => {
           this.transactions = data.content;
           this.totalRecords = data.totalElements;
         },
+        complete: () => (this.loading = false),
       });
+    }
   }
 
-  onAccountClear() {
+  onPageChange(event: any) {
+    this.page = event.page;
+    this.size = event.rows;
+    this.loadTransactions();
+  }
+
+  onAccountSelect(event: any) {
+    this.accountId = event.value;
     this.page = 0;
     this.loadTransactions();
   }

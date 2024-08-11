@@ -1,7 +1,8 @@
+@if (loading) {
+<app-loading-spinner></app-loading-spinner>
+} @else {
 <div class="padding-x">
-  @if (loading) {
-  <app-loading-spinner></app-loading-spinner>
-  } @else { @if (accounts.length > 0) {
+  @if (accounts.length > 0) {
   <p-paginator
     styleClass="surface-0"
     (onPageChange)="onPageChange($event)"
@@ -27,5 +28,5 @@
     (dialogVisibleChange)="showDialog($event)"
     (refreshData)="loadData()"
   ></app-new-account-dialog>
-  }
 </div>
+}
