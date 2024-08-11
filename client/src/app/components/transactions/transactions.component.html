@@ -1,7 +1,22 @@
 @if (loading) {
 <app-loading-spinner></app-loading-spinner>
 } @else {
-<div class="padding-x-transactions flex flex-row w-full">
+<div
+  class="padding-x-transactions flex flex-column xl:flex-row w-full align-items-center xl:align-items-start"
+>
+  <div
+    class="dropdown pl-0 xl:hidden mb-4 flex align-items-center justify-content-center"
+  >
+    <p-dropdown
+      [options]="accounts"
+      placeholder="All Accounts"
+      [editable]="true"
+      optionLabel="name"
+      optionValue="id"
+      (onChange)="onAccountSelect($event)"
+      [showClear]="true"
+    ></p-dropdown>
+  </div>
   <div class="flex flex-column flex-grow-1">
     @if (transactions.length > 0) {
     <p-paginator
@@ -21,7 +36,7 @@
     <div class="text-3xl text-primary font-bold">No transactions found.</div>
     }
   </div>
-  <div class="dropdown">
+  <div class="dropdown hidden xl:block">
     <p-dropdown
       [options]="accounts"
       placeholder="All Accounts"

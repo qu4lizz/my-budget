@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { TransactionWithAccount } from '../../interfaces/TransactionWithAccount';
 import { SingleTransactionComponent } from './single-transaction/single-transaction.component';
 import { DropdownModule } from 'primeng/dropdown';
@@ -39,6 +45,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   private refreshSubscription!: Subscription;
 
+  public screenWidth: any;
+
   constructor(
     private transactionService: TransactionService,
     private accountService: AccountService,
@@ -56,12 +64,19 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     this.accountService.getAllAccounts().subscribe({
       next: (accounts: any) => (this.accounts = accounts),
     });
+
+    this.screenWidth = window.innerWidth;
   }
 
   ngOnDestroy(): void {
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();
     }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.screenWidth = window.innerWidth;
   }
 
   loadTransactions() {
