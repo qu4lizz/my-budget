@@ -6,7 +6,7 @@ import qu4lizz.mybudget.server.models.dto.DefaultCurrency;
 import qu4lizz.mybudget.server.services.SettingsService;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/settings")
 public class SettingsController {
     private final SettingsService settingsService;
 
