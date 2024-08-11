@@ -7,6 +7,7 @@
       <app-currency-dropdown
         (onCurrencyChange)="onCurrencyChange($event)"
         [selectedCurrency]="userContext.defaultCurrency"
+        [optionLabel]="'value'"
         [style]="{
           width: '7rem',
           border: 'none',

@@ -19,6 +19,8 @@ export class SettingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.userContext.fetchDefaultCurrency();
+
     this.currencyService
       .getExchangeRateDateUpdate(this.userContext.defaultCurrency)
       .subscribe({
@@ -29,7 +31,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onCurrencyChange(event: any) {
-    this.userContext.updateDefaultCurrency(event);
+    this.userContext.updateDefaultCurrency(event.value);
   }
 
   deleteAllData() {

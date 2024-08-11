@@ -7,12 +7,16 @@ const baseUrl = environment.api_url + '/settings';
 @Injectable({
   providedIn: 'root',
 })
-export class UserContextService {
+export class UserContextService implements OnInit {
   constructor(private http: HttpClient) {}
 
   public defaultCurrency: string = 'eur';
 
-  public getDefaultCurrency() {
+  ngOnInit(): void {
+    this.fetchDefaultCurrency();
+  }
+
+  public fetchDefaultCurrency() {
     return this.http
       .get(baseUrl + '/default-currency')
       .subscribe((data: any) => {
@@ -24,7 +28,7 @@ export class UserContextService {
     return this.http
       .put(baseUrl + '/default-currency', { defaultCurrency: currency })
       .subscribe({
-        next: (data: any) => (this.defaultCurrency = data.defaultCurrency),
+        next: (data: any) => (this.defaultCurrency = currency),
       });
   }
 

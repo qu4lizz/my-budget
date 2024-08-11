@@ -15,6 +15,7 @@ export class CurrencyDropdownComponent implements OnInit {
   @Output() onCurrencyChange = new EventEmitter<any>();
   @Input() selectedCurrency: any;
   @Input() style: any;
+  @Input() optionLabel: string = 'label';
 
   constructor(private currencyService: CurrencyService) {}
 
@@ -48,12 +49,16 @@ export class CurrencyDropdownComponent implements OnInit {
   }
 
   onSelect(event: any) {
-    this.onCurrencyChange.emit(event);
+    if (this.currencies?.find((c) => c.value === event.value)) {
+      this.onCurrencyChange.emit(event);
+      if (this.optionLabel === 'value') {
+        this.selectedCurrency = event.value.toUpperCase();
+      }
+    }
   }
 
   onLazyLoad(event: any) {
     this.loading = true;
-    console.log(event);
 
     const { first, last } = event;
     const currencies = [...(this.currencies ?? [])];
