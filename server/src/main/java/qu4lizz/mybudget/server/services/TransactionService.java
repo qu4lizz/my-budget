@@ -46,10 +46,14 @@ public class TransactionService {
             throw new BadRequestException("Insufficient balance");
         }
 
-        TransactionEntity transaction = modelMapper.map(request, TransactionEntity.class);
+        TransactionEntity transaction = new TransactionEntity();
+        transaction.setDescription(request.getDescription());
+        transaction.setAmount(request.getAmount());
+        transaction.setCurrency(request.getCurrency());
+        transaction.setAccount(account);
         transactionRepository.save(transaction);
 
-        account.setBalance(account.getBalance().add(request.getAmount()));
+        account.setBalance(account.getBalance().add(exchangedAmount));
         accountRepository.save(account);
     }
 }
