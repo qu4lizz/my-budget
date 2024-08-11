@@ -4,6 +4,8 @@
     <app-single-transaction
       [transaction]="transaction"
     ></app-single-transaction>
+    } @if (transactions.length === 0) {
+    <div class="text-3xl text-primary font-bold">No transactions found.</div>
     }
   </div>
   <div class="dropdown">

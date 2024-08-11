@@ -29,10 +29,17 @@ export class SettingsComponent implements OnInit {
   }
 
   onCurrencyChange(event: any) {
-    this.userContext.defaultCurrency = event;
+    this.userContext.updateDefaultCurrency(event);
   }
 
   deleteAllData() {
-    // TODO: delete all data
+    this.userContext.deleteAllData().subscribe({
+      next: () => {
+        // TODO: toast
+      },
+      error: () => {
+        // TODO: toast
+      },
+    });
   }
 }

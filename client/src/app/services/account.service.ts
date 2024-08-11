@@ -21,9 +21,15 @@ export class AccountService {
     return this.http.get(baseUrl + query);
   }
 
+  public getAllAccounts() {
+    return this.http.get(baseUrl + '/all');
+  }
+
   public getAvailableBalance() {
-    this.http.get(baseUrl + '/available-balance').subscribe((data: any) => {
-      this.availableBalance = data.availableBalance;
-    });
+    return this.http
+      .get(baseUrl + '/available-balance')
+      .subscribe((data: any) => {
+        this.availableBalance = data.availableBalance;
+      });
   }
 }

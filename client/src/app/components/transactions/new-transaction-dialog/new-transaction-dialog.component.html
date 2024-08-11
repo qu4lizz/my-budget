@@ -41,8 +41,8 @@
             placeholder="Select"
             [editable]="true"
             formControlName="account"
-            optionLabel="label"
-            optionValue="label"
+            optionLabel="name"
+            optionValue="id"
             [appendTo]="'body'"
           ></p-dropdown>
         </td>
@@ -52,7 +52,7 @@
             [inputStyle]="{ width: '10rem' }"
             minFractionDigits="2"
             [suffix]="userContext.defaultCurrency.toUpperCase()"
-            formControlName="balance"
+            formControlName="amount"
           />
         </td>
       </tr>

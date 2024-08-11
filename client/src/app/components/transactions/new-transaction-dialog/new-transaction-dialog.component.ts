@@ -13,6 +13,10 @@ import { ButtonModule } from 'primeng/button';
 import { UserContextService } from '../../../services/user-context.service';
 import { TransactionType } from '../../../interfaces/TransactionType';
 import { Account } from '../../../interfaces/Account';
+import { TransactionService } from '../../../services/transaction.service';
+import { Transaction } from '../../../interfaces/Transaction';
+import { TransactionRefreshService } from '../../../services/transaction-refresh.service';
+import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-new-transaction-dialog',
@@ -28,7 +32,7 @@ import { Account } from '../../../interfaces/Account';
   templateUrl: './new-transaction-dialog.component.html',
   styleUrl: './new-transaction-dialog.component.css',
 })
-export class NewTransactionDialogComponent {
+export class NewTransactionDialogComponent implements OnInit {
   @Input() dialogVisible: boolean = false;
   @Output() dialogVisibleChange = new EventEmitter<boolean>();
 
@@ -36,11 +40,14 @@ export class NewTransactionDialogComponent {
 
   public typesOptions = TransactionType;
 
-  public accounts: Account[] | undefined;
+  public accounts: Account[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
-    public userContext: UserContextService
+    public userContext: UserContextService,
+    private transactionService: TransactionService,
+    private transactionRefreshService: TransactionRefreshService,
+    private accountService: AccountService
   ) {
     this.form = this.formBuilder.group({
       description: [null, Validators.required],
@@ -50,13 +57,31 @@ export class NewTransactionDialogComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.accountService.getAllAccounts().subscribe({
+      next: (accounts: any) => (this.accounts = accounts),
+    });
+  }
+
   onCancel() {
-    console.log('cancel1');
     this.dialogVisibleChange.emit(false);
   }
 
   onSubmitForm() {
-    console.log(this.form.value);
-    // TODO: submit form
+    const amount =
+      this.form.value.type === 'Income'
+        ? this.form.value.amount
+        : -this.form.value.amount;
+
+    const transaction: Transaction = {
+      description: this.form.value.description,
+      amount: amount,
+      currency: this.userContext.defaultCurrency,
+      idAccount: this.form.value.account,
+    };
+    this.transactionService.createTransaction(transaction).subscribe({
+      next: () => this.transactionRefreshService.triggerRefresh(),
+      complete: () => this.dialogVisibleChange.emit(false),
+    });
   }
 }

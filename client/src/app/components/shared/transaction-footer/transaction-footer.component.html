@@ -8,10 +8,12 @@
     (onClick)="showTransactionDialog(true)"
     severity="contrast"
   />
+  @if (transactionDialogVisible) {
   <app-new-transaction-dialog
     [dialogVisible]="transactionDialogVisible"
     (dialogVisibleChange)="showTransactionDialog($event)"
   ></app-new-transaction-dialog>
+  }
   <div
     class="text-2xl font-bold flex justify-content-center align-items-center"
   >

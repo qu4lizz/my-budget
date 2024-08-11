@@ -14,13 +14,6 @@ body {
   padding-right: 25rem;
 }
 
-@media (max-width: 1649px) {
-  .padding-x {
-    padding-left: 15rem;
-    padding-right: 15rem;
-  }
-}
-
 @media (max-width: 1199px) {
   .padding-x {
     padding-left: 5rem;

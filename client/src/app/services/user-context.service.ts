@@ -13,13 +13,15 @@ export class UserContextService {
   public defaultCurrency: string = 'eur';
 
   public getDefaultCurrency() {
-    this.http.get(baseUrl + '/default-currency').subscribe((data: any) => {
-      this.defaultCurrency = data.defaultCurrency;
-    });
+    return this.http
+      .get(baseUrl + '/default-currency')
+      .subscribe((data: any) => {
+        this.defaultCurrency = data.defaultCurrency;
+      });
   }
 
   public updateDefaultCurrency(currency: string) {
-    this.http
+    return this.http
       .put(baseUrl + '/default-currency', { defaultCurrency: currency })
       .subscribe({
         next: (data: any) => (this.defaultCurrency = data.defaultCurrency),
@@ -27,6 +29,6 @@ export class UserContextService {
   }
 
   public deleteAllData() {
-    this.http.delete(baseUrl + '/delete-all-data');
+    return this.http.delete(baseUrl + '/delete-all-data');
   }
 }
