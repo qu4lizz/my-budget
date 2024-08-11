@@ -11,7 +11,7 @@
       [first]="first"
       [rows]="size"
       [totalRecords]="totalRecords"
-      [rowsPerPageOptions]="[1, 20, 30]"
+      [rowsPerPageOptions]="[10, 20, 30]"
     />
     @for(transaction of transactions; track transaction.id) {
     <app-single-transaction

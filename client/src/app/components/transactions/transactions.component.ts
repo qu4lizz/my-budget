@@ -29,7 +29,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   @ViewChild('paginator', { static: false }) paginator!: Paginator;
   public page: number = 0;
-  public size: number = 1;
+  public size: number = 10;
   public totalRecords: number = 0;
   public first: number = 0;
 
