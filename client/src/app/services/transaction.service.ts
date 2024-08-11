@@ -16,7 +16,7 @@ export class TransactionService {
   }
 
   public getTransactionsByAccount(query: string, idAccount: number) {
-    return this.http.get(baseUrl + '/' + idAccount + query);
+    return this.http.get(baseUrl + '/account/' + idAccount + query);
   }
 
   public createTransaction(transaction: Transaction) {

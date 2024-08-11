@@ -1,5 +1,5 @@
 <div
-  class="padding-x flex justify-content-between border-top-3 border-primary py-3"
+  class="padding-x flex flex-column xl:flex-row xl:justify-content-between gap-3 align-items-center border-top-3 border-primary py-3"
 >
   <p-button
     label="New transaction"
@@ -17,7 +17,7 @@
   <div
     class="text-2xl font-bold flex justify-content-center align-items-center"
   >
-    Available: {{ accountService.availableBalance }}
+    Available: {{ accountService.availableBalance.toFixed(2) }}
     {{ userContext.defaultCurrency.toUpperCase() }}
   </div>
 </div>

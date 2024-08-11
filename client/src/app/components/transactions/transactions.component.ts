@@ -67,6 +67,20 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   }
 
   onAccountSelect(event: any) {
-    console.log(event);
+    this.page = 0;
+    const query = `?page=${this.page}&size=${this.size}`;
+    this.transactionService
+      .getTransactionsByAccount(query, event.value)
+      .subscribe({
+        next: (data: any) => {
+          this.transactions = data.content;
+          this.totalRecords = data.totalElements;
+        },
+      });
+  }
+
+  onAccountClear() {
+    this.page = 0;
+    this.loadTransactions();
   }
 }
