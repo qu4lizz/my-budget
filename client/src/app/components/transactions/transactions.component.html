@@ -5,8 +5,10 @@
   <div class="flex flex-column flex-grow-1">
     @if (transactions.length > 0) {
     <p-paginator
+      #paginator
       styleClass="surface-0"
       (onPageChange)="onPageChange($event)"
+      [first]="first"
       [rows]="size"
       [totalRecords]="totalRecords"
       [rowsPerPageOptions]="[1, 20, 30]"

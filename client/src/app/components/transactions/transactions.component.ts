@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { TransactionWithAccount } from '../../interfaces/TransactionWithAccount';
 import { SingleTransactionComponent } from './single-transaction/single-transaction.component';
 import { DropdownModule } from 'primeng/dropdown';
@@ -8,7 +8,7 @@ import { AccountService } from '../../services/account.service';
 import { Subscription } from 'rxjs';
 import { TransactionRefreshService } from '../../services/transaction-refresh.service';
 import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
-import { PaginatorModule } from 'primeng/paginator';
+import { Paginator, PaginatorModule } from 'primeng/paginator';
 
 @Component({
   selector: 'app-transactions',
@@ -27,9 +27,11 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   public accounts: Account[] = [];
 
+  @ViewChild('paginator', { static: false }) paginator!: Paginator;
   public page: number = 0;
-  public size: number = 10;
+  public size: number = 1;
   public totalRecords: number = 0;
+  public first: number = 0;
 
   public loading: boolean = true;
 
@@ -95,6 +97,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   onAccountSelect(event: any) {
     this.accountId = event.value;
     this.page = 0;
-    this.loadTransactions();
+    this.paginator.changePage(0);
   }
 }
