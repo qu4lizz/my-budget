@@ -11,15 +11,19 @@ import qu4lizz.mybudget.server.models.requests.CreateTransactionRequest;
 import qu4lizz.mybudget.server.repositories.AccountRepository;
 import qu4lizz.mybudget.server.repositories.TransactionRepository;
 
+import java.math.BigDecimal;
+
 @Service
 public class TransactionService {
     private final TransactionRepository transactionRepository;
     private final AccountRepository accountRepository;
+    private final CurrencyService currencyService;
     private final ModelMapper modelMapper;
 
-    public TransactionService(TransactionRepository transactionRepository, AccountRepository accountRepository, ModelMapper modelMapper) {
+    public TransactionService(TransactionRepository transactionRepository, AccountRepository accountRepository, CurrencyService currencyService, ModelMapper modelMapper) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
+        this.currencyService = currencyService;
         this.modelMapper = modelMapper;
     }
 
@@ -34,7 +38,11 @@ public class TransactionService {
     public void createTransaction(CreateTransactionRequest request) throws BadRequestException {
         AccountEntity account = accountRepository.findById(request.getIdAccount()).orElseThrow(() -> new BadRequestException("Invalid account"));
 
-        if (account.getBalance().compareTo(request.getAmount()) < 0) {
+        BigDecimal exchangedAmount = currencyService.getExchangedAmount(request.getCurrency(), account.getCurrency(), request.getAmount());
+
+        BigDecimal newBalance = account.getBalance().add(exchangedAmount);
+
+        if (newBalance.compareTo(BigDecimal.ZERO) < 0) {
             throw new BadRequestException("Insufficient balance");
         }
 

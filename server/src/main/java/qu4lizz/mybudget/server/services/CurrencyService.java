@@ -6,6 +6,8 @@ import org.springframework.web.client.RestTemplate;
 import qu4lizz.mybudget.server.models.json.CurrencyExchangeRates;
 import qu4lizz.mybudget.server.models.json.CurrencyRates;
 
+import java.math.BigDecimal;
+
 @Service
 public class CurrencyService {
     @Value("${url.exchange}")
@@ -29,5 +31,13 @@ public class CurrencyService {
         CurrencyRates rates = restTemplate.getForObject(currenciesURL, CurrencyRates.class);
 
         return rates != null && rates.getRates().containsKey(currency);
+    }
+
+    public BigDecimal getExchangedAmount(String fromCurrency, String toCurrency, BigDecimal amount) {
+        CurrencyExchangeRates currencyExchangeRates = getCurrencyRates(fromCurrency);
+
+        BigDecimal exchangeRate = currencyExchangeRates.getRates().get(fromCurrency).get(toCurrency);
+
+        return amount.multiply(exchangeRate);
     }
 }

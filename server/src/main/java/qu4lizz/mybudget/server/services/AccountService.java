@@ -48,10 +48,9 @@ public class AccountService {
                 if (account.getCurrency().equals(defaultCurrency)) {
                     accumulatedBalance = accumulatedBalance.add(account.getBalance());
                 } else {
-                    CurrencyExchangeRates currencyExchangeRates = currencyService.getCurrencyRates(account.getCurrency());
+                    BigDecimal exchangedAmount = currencyService.getExchangedAmount(account.getCurrency(), defaultCurrency, account.getBalance());
 
-                    BigDecimal exchangeRate = currencyExchangeRates.getRates().get(account.getCurrency()).get(defaultCurrency);
-                    accumulatedBalance = accumulatedBalance.add(exchangeRate.multiply(account.getBalance()));
+                    accumulatedBalance = accumulatedBalance.add(exchangedAmount);
                 }
             }
         }
