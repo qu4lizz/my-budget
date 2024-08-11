@@ -25,7 +25,7 @@ export class AccountService {
     return this.http.get(baseUrl + '/all');
   }
 
-  public getAvailableBalance() {
+  public fetchAvailableBalance() {
     return this.http
       .get(baseUrl + '/available-balance')
       .subscribe((data: any) => {

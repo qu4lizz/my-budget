@@ -74,6 +74,7 @@ export class NewAccountDialogComponent implements OnInit {
     this.accountService.createAccount(account).subscribe({
       next: () => {
         this.refreshData.emit();
+        this.accountService.fetchAvailableBalance();
       },
       error(err) {
         console.log(err);

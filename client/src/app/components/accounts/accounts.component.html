@@ -3,6 +3,7 @@
   <app-loading-spinner></app-loading-spinner>
   } @else { @if (accounts.length > 0) {
   <p-paginator
+    styleClass="surface-0"
     (onPageChange)="onPageChange($event)"
     [rows]="size"
     [totalRecords]="totalRecords"

@@ -80,7 +80,10 @@ export class NewTransactionDialogComponent implements OnInit {
       idAccount: this.form.value.account,
     };
     this.transactionService.createTransaction(transaction).subscribe({
-      next: () => this.transactionRefreshService.triggerRefresh(),
+      next: () => {
+        this.transactionRefreshService.triggerRefresh();
+        this.accountService.fetchAvailableBalance();
+      },
       complete: () => this.dialogVisibleChange.emit(false),
     });
   }

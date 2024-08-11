@@ -20,7 +20,7 @@ export class TransactionFooterComponent implements OnInit {
   public transactionDialogVisible: boolean = false;
 
   ngOnInit(): void {
-    this.accountService.getAvailableBalance();
+    this.accountService.fetchAvailableBalance();
   }
 
   showTransactionDialog(value: boolean) {

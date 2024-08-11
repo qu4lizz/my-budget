@@ -1,4 +1,4 @@
-@import "primeng/resources/themes/luna-amber/theme.css";
+@import "primeng/resources/themes/arya-orange/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
@@ -14,8 +14,20 @@ body {
   padding-right: 25rem;
 }
 
+.padding-x-transactions {
+  padding-left: 25rem;
+  padding-right: 10rem;
+}
+
 @media (max-width: 1199px) {
+  html {
+    font-size: 14px;
+  }
   .padding-x {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  .padding-x-transactions {
     padding-left: 5rem;
     padding-right: 5rem;
   }
