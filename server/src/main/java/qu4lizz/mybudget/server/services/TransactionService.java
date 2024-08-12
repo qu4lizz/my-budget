@@ -36,24 +36,27 @@ public class TransactionService {
     }
 
     public void createTransaction(CreateTransactionRequest request) throws BadRequestException {
-        AccountEntity account = accountRepository.findById(request.getIdAccount()).orElseThrow(() -> new BadRequestException("Invalid account"));
+        if (currencyService.isValidCurrency(request.getCurrency())) {
+            AccountEntity account = accountRepository.findById(request.getIdAccount()).orElseThrow(() -> new BadRequestException("Invalid account"));
 
-        BigDecimal exchangedAmount = currencyService.getExchangedAmount(request.getCurrency(), account.getCurrency(), request.getAmount());
+            BigDecimal exchangedAmount = currencyService.getExchangedAmount(request.getCurrency(), account.getCurrency(), request.getAmount());
 
-        BigDecimal newBalance = account.getBalance().add(exchangedAmount);
+            BigDecimal newBalance = account.getBalance().add(exchangedAmount);
 
-        if (newBalance.compareTo(BigDecimal.ZERO) < 0) {
-            throw new BadRequestException("Insufficient balance");
+            if (newBalance.compareTo(BigDecimal.ZERO) < 0) {
+                throw new BadRequestException("Insufficient balance");
+            }
+
+            TransactionEntity transaction = new TransactionEntity();
+            transaction.setDescription(request.getDescription());
+            transaction.setAmount(request.getAmount());
+            transaction.setCurrency(request.getCurrency());
+            transaction.setAccount(account);
+            transactionRepository.save(transaction);
+
+            account.setBalance(account.getBalance().add(exchangedAmount));
+            accountRepository.save(account);
         }
-
-        TransactionEntity transaction = new TransactionEntity();
-        transaction.setDescription(request.getDescription());
-        transaction.setAmount(request.getAmount());
-        transaction.setCurrency(request.getCurrency());
-        transaction.setAccount(account);
-        transactionRepository.save(transaction);
-
-        account.setBalance(account.getBalance().add(exchangedAmount));
-        accountRepository.save(account);
+        else throw new BadRequestException("Invalid currency");
     }
 }

@@ -13,6 +13,6 @@ public interface TransactionRepository extends JpaRepository<TransactionEntity, 
 
     @Modifying
     @Transactional
-    @Query(value = "TRUNCATE TABLE transaction", nativeQuery = true)
+    @Query(value = "TRUNCATE TABLE transaction CASCADE", nativeQuery = true)
     void truncateTable();
 }

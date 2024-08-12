@@ -1,6 +1,7 @@
 package qu4lizz.mybudget.server.controllers;
 
 import jakarta.validation.Valid;
+import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class AccountController {
     public List<AccountEntity> getAllAccounts() { return accountService.getAllAccounts();}
 
     @PostMapping
-    public void create(@Valid @RequestBody CreateAccountRequest request) {
+    public void create(@Valid @RequestBody CreateAccountRequest request) throws BadRequestException {
         accountService.create(request);
     }
 

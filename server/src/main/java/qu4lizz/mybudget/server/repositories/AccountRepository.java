@@ -9,6 +9,6 @@ import qu4lizz.mybudget.server.models.entities.AccountEntity;
 public interface AccountRepository extends JpaRepository<AccountEntity, Integer> {
     @Modifying
     @Transactional
-    @Query(value = "TRUNCATE TABLE account", nativeQuery = true)
+    @Query(value = "TRUNCATE TABLE account CASCADE", nativeQuery = true)
     void truncateTable();
 }

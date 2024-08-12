@@ -30,7 +30,7 @@ public class CurrencyService {
     public Boolean isValidCurrency(String currency) {
         CurrencyRates rates = restTemplate.getForObject(currenciesURL, CurrencyRates.class);
 
-        return rates != null && rates.getRates().containsKey(currency);
+        return rates != null && rates.getCurrencies().containsKey(currency);
     }
 
     public BigDecimal getExchangedAmount(String fromCurrency, String toCurrency, BigDecimal amount) {

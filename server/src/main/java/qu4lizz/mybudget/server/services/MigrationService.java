@@ -35,7 +35,7 @@ public class MigrationService {
                 Accounts accounts = xmlService.parseXMLfromFile(oldDatabasePath);
 
                 for (var account : accounts.getAccounts()) {
-                    AccountEntity accountEntity = new AccountEntity(account.getName(), account.getBalance(), account.getCurrency());
+                    AccountEntity accountEntity = new AccountEntity(account.getName(), account.getBalance(), account.getCurrency().toLowerCase());
 
                     AccountEntity storedAccountEntity = accountRepository.save(accountEntity);
 

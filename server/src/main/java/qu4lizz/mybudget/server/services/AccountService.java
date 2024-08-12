@@ -1,5 +1,6 @@
 package qu4lizz.mybudget.server.services;
 
+import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,10 +27,12 @@ public class AccountService {
         this.modelMapper = modelMapper;
     }
 
-    public void create(CreateAccountRequest request) {
-        AccountEntity entity = modelMapper.map(request, AccountEntity.class);
-
-        accountRepository.save(entity);
+    public void create(CreateAccountRequest request) throws BadRequestException {
+        if (currencyService.isValidCurrency(request.getCurrency())) {
+            AccountEntity entity = modelMapper.map(request, AccountEntity.class);
+            accountRepository.save(entity);
+        }
+        else throw new BadRequestException("Invalid currency");
     }
 
     public Page<AccountEntity> getAccounts(Pageable pageable) {
