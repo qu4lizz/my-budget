@@ -1,0 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+
+.dropdown {
+  width: 15rem;
+  padding-left: 2rem;
+  display: flex;
+  align-items: start;
+}

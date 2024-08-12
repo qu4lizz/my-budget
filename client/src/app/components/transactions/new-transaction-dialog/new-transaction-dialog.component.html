@@ -1,0 +1,76 @@
+<p-dialog
+  header="New Transaction"
+  [modal]="true"
+  [(visible)]="dialogVisible"
+  (onHide)="onCancel()"
+>
+  <form [formGroup]="form">
+    <table class="w-full">
+      <tr>
+        <td>Description:</td>
+        <td colspan="3">
+          <input
+            [style]="{ width: '100%' }"
+            type="text"
+            pInputText
+            formControlName="description"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>Type:</td>
+        <td colspan="3">
+          <p-dropdown
+            [style]="{ width: '10rem' }"
+            [options]="typesOptions"
+            placeholder="Select"
+            [editable]="true"
+            formControlName="type"
+            optionLabel="label"
+            optionValue="label"
+            [appendTo]="'body'"
+          ></p-dropdown>
+        </td>
+      </tr>
+      <tr>
+        <td>Account:</td>
+        <td>
+          <p-dropdown
+            [style]="{ width: '10rem' }"
+            [options]="accounts"
+            placeholder="Select"
+            [editable]="true"
+            formControlName="account"
+            optionLabel="name"
+            optionValue="id"
+            [appendTo]="'body'"
+          ></p-dropdown>
+        </td>
+        <td>Amount:</td>
+        <td>
+          <p-inputNumber
+            [inputStyle]="{ width: '10rem' }"
+            minFractionDigits="2"
+            [suffix]="userContext.defaultCurrency.toUpperCase()"
+            formControlName="amount"
+          />
+        </td>
+      </tr>
+    </table>
+    <div class="flex justify-content-end gap-3 pr-3 pt-5">
+      <p-button
+        label="Cancel"
+        [text]="true"
+        severity="secondary"
+        (onClick)="onCancel()"
+      />
+      <p-button
+        type="submit"
+        label="Create Transaction"
+        [outlined]="true"
+        [rounded]="true"
+        (onClick)="onSubmitForm()"
+      />
+    </div>
+  </form>
+</p-dialog>

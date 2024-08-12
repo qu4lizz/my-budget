@@ -1,0 +1,15 @@
+<p-dropdown
+  [style]="style"
+  [options]="currenciesOptions"
+  placeholder="Select"
+  [editable]="true"
+  optionLabel="label"
+  optionValue="value"
+  [appendTo]="'body'"
+  [virtualScroll]="true"
+  [virtualScrollItemSize]="virtualScrollItemSize"
+  [virtualScrollOptions]="options"
+  (onChange)="onSelect($event)"
+  [ngModel]="selectedCurrency?.toUpperCase()"
+  [panelStyle]="{ 'min-width': '15rem' }"
+/>

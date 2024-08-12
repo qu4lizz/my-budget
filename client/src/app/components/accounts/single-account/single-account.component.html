@@ -1,0 +1,22 @@
+<div
+  class="px-2 py-4 row-height flex flex-row justify-content-between align-items-center border-bottom-1 border-primary"
+>
+  <div class="text-2xl">{{ account?.name }}</div>
+  <div class="flex flex-column gap-1">
+    @if (account?.currency === userContext.defaultCurrency) {
+    <div class="text-2xl">
+      {{ account?.balance?.toFixed(2) }}
+      {{ account?.currency?.toUpperCase() }}
+    </div>
+    } @else {
+    <div class="text-2xl text-right">
+      {{ exchangedValue?.toFixed(2) }}
+      {{ userContext.defaultCurrency.toUpperCase() }}
+    </div>
+    <div class="text-base text-right">
+      {{ account?.balance?.toFixed(2) }}
+      {{ account?.currency?.toUpperCase() }}
+    </div>
+    }
+  </div>
+</div>

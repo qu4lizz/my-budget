@@ -1,0 +1,23 @@
+<div
+  class="padding-x flex flex-column xl:flex-row xl:justify-content-between gap-3 align-items-center border-top-3 border-primary py-3 surface-0"
+>
+  <p-button
+    label="New transaction"
+    [outlined]="true"
+    [rounded]="true"
+    (onClick)="showTransactionDialog(true)"
+    severity="contrast"
+  />
+  @if (transactionDialogVisible) {
+  <app-new-transaction-dialog
+    [dialogVisible]="transactionDialogVisible"
+    (dialogVisibleChange)="showTransactionDialog($event)"
+  ></app-new-transaction-dialog>
+  }
+  <div
+    class="text-2xl font-bold flex justify-content-center align-items-center"
+  >
+    Available: {{ accountService.availableBalance.toFixed(2) }}
+    {{ userContext.defaultCurrency.toUpperCase() }}
+  </div>
+</div>

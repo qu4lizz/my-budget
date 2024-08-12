@@ -1,1 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/arya-orange/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.padding-x {
+  padding-left: 25rem;
+  padding-right: 25rem;
+}
+
+.padding-x-transactions {
+  padding-left: 25rem;
+  padding-right: 10rem;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  margin-bottom: calc(2rem + 40px);
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+}
+
+@media (max-width: 1199px) {
+  html {
+    font-size: 14px;
+  }
+  .padding-x {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  .padding-x-transactions {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  .content {
+    margin-bottom: calc(2rem + 77px);
+  }
+}
