@@ -8,8 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
-import { CurrencyService } from '../../../services/currency.service';
-import { MessageService, ScrollerOptions } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { CurrencyDropdownComponent } from '../../shared/currency-dropdown/currency-dropdown.component';

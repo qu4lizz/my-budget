@@ -12,7 +12,7 @@ import { Account } from '../../interfaces/Account';
 import { TransactionService } from '../../services/transaction.service';
 import { AccountService } from '../../services/account.service';
 import { Subscription } from 'rxjs';
-import { TransactionRefreshService } from '../../services/transaction-refresh.service';
+import { RefreshService } from '../../services/refresh.service';
 import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
 import { Paginator, PaginatorModule } from 'primeng/paginator';
 
@@ -35,7 +35,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   @ViewChild('paginator', { static: false }) paginator!: Paginator;
   public page: number = 0;
-  public size: number = 10;
+  public size: number = 5;
   public totalRecords: number = 0;
   public first: number = 0;
 
@@ -50,16 +50,15 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   constructor(
     private transactionService: TransactionService,
     private accountService: AccountService,
-    private transactionRefreshService: TransactionRefreshService
+    private refreshService: RefreshService
   ) {}
 
   ngOnInit(): void {
     this.loadTransactions();
 
-    this.refreshSubscription =
-      this.transactionRefreshService.refreshTransactions$.subscribe(() => {
-        this.loadTransactions();
-      });
+    this.refreshSubscription = this.refreshService.refresh$.subscribe(() => {
+      this.loadTransactions();
+    });
 
     this.accountService.getAllAccounts().subscribe({
       next: (accounts: any) => (this.accounts = accounts),

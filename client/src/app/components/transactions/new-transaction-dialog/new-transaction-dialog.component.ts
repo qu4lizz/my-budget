@@ -15,7 +15,7 @@ import { TransactionType } from '../../../interfaces/TransactionType';
 import { Account } from '../../../interfaces/Account';
 import { TransactionService } from '../../../services/transaction.service';
 import { Transaction } from '../../../interfaces/Transaction';
-import { TransactionRefreshService } from '../../../services/transaction-refresh.service';
+import { RefreshService } from '../../../services/refresh.service';
 import { AccountService } from '../../../services/account.service';
 import { MessageService } from 'primeng/api';
 
@@ -47,7 +47,7 @@ export class NewTransactionDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     public userContext: UserContextService,
     private transactionService: TransactionService,
-    private transactionRefreshService: TransactionRefreshService,
+    private transactionRefreshService: RefreshService,
     private accountService: AccountService,
     private messageService: MessageService
   ) {

@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Account } from '../../../interfaces/Account';
 import { CurrencyService } from '../../../services/currency.service';
 import { UserContextService } from '../../../services/user-context.service';
@@ -10,7 +16,7 @@ import { UserContextService } from '../../../services/user-context.service';
   templateUrl: './single-account.component.html',
   styleUrl: './single-account.component.css',
 })
-export class SingleAccountComponent implements OnInit {
+export class SingleAccountComponent implements OnInit, OnChanges {
   @Input() account: Account | undefined;
 
   public exchangedValue: number | undefined;
@@ -22,6 +28,12 @@ export class SingleAccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.calculateExchangedAmount();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['account']) {
+      this.calculateExchangedAmount();
+    }
   }
 
   calculateExchangedAmount() {

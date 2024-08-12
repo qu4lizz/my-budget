@@ -7,6 +7,8 @@ import { NewAccountDialogComponent } from './new-account-dialog/new-account-dial
 import { AccountService } from '../../services/account.service';
 import { PaginatorModule } from 'primeng/paginator';
 import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
+import { RefreshService } from '../../services/refresh.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-accounts',
@@ -28,15 +30,24 @@ export class AccountsComponent implements OnInit {
   dialogVisible: boolean = false;
 
   public page: number = 0;
-  public size: number = 10;
+  public size: number = 5;
   public totalRecords: number = 0;
 
   public loading: boolean = true;
 
-  constructor(private accountService: AccountService) {}
+  private refreshSubscription!: Subscription;
+
+  constructor(
+    private accountService: AccountService,
+    private refreshService: RefreshService
+  ) {}
 
   ngOnInit(): void {
     this.loadData();
+
+    this.refreshSubscription = this.refreshService.refresh$.subscribe(() => {
+      this.loadData();
+    });
   }
 
   onPageChange(event: any) {

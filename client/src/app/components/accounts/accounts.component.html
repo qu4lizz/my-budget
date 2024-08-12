@@ -8,7 +8,7 @@
     (onPageChange)="onPageChange($event)"
     [rows]="size"
     [totalRecords]="totalRecords"
-    [rowsPerPageOptions]="[10, 20, 30]"
+    [rowsPerPageOptions]="[5, 10, 25]"
   />
   @for (account of accounts; track account.id) {
   <app-single-account [account]="account"></app-single-account>
@@ -23,10 +23,12 @@
       (onClick)="showDialog(true)"
     />
   </div>
+  @if (dialogVisible) {
   <app-new-account-dialog
     [dialogVisible]="dialogVisible"
     (dialogVisibleChange)="showDialog($event)"
     (refreshData)="loadData()"
   ></app-new-account-dialog>
+  }
 </div>
 }
