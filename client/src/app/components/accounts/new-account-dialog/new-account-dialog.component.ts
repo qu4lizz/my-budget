@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import { CurrencyService } from '../../../services/currency.service';
-import { ScrollerOptions } from 'primeng/api';
+import { MessageService, ScrollerOptions } from 'primeng/api';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { CurrencyDropdownComponent } from '../../shared/currency-dropdown/currency-dropdown.component';
@@ -40,8 +40,8 @@ export class NewAccountDialogComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private currencyService: CurrencyService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private messageService: MessageService
   ) {
     this.form = this.formBuilder.group({
       name: [null, Validators.required],
@@ -76,11 +76,20 @@ export class NewAccountDialogComponent implements OnInit {
         this.refreshData.emit();
         this.accountService.fetchAvailableBalance();
       },
-      error(err) {
-        console.log(err);
+      error: (err: any) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.error,
+        });
       },
       complete: () => {
         this.dialogVisibleChange.emit(false);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Account created successfully',
+        });
       },
     });
   }

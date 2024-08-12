@@ -17,6 +17,7 @@ import { TransactionService } from '../../../services/transaction.service';
 import { Transaction } from '../../../interfaces/Transaction';
 import { TransactionRefreshService } from '../../../services/transaction-refresh.service';
 import { AccountService } from '../../../services/account.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-new-transaction-dialog',
@@ -47,7 +48,8 @@ export class NewTransactionDialogComponent implements OnInit {
     public userContext: UserContextService,
     private transactionService: TransactionService,
     private transactionRefreshService: TransactionRefreshService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private messageService: MessageService
   ) {
     this.form = this.formBuilder.group({
       description: [null, Validators.required],
@@ -80,6 +82,20 @@ export class NewTransactionDialogComponent implements OnInit {
       idAccount: this.form.value.account,
     };
     this.transactionService.createTransaction(transaction).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Transaction created successfully',
+        });
+      },
+      error: (err: any) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.error,
+        });
+      },
       complete: () => {
         this.transactionRefreshService.triggerRefresh();
         this.accountService.fetchAvailableBalance();
