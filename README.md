@@ -1,3 +1,5 @@
 # My Budget
-## Commands
-Live reload Angular: `docker run -d -p 4200:4200 --name my-budget-client-lr -v $(pwd):/app -v /app/node_modules my-budget-client`
+## Instructions
+To run application position yourself into root folder of application and run command:
+
+`docker compose --env-file ./database/.env up`
