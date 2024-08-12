@@ -111,7 +111,11 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   onAccountSelect(event: any) {
     this.accountId = event.value;
-    this.page = 0;
-    this.paginator.changePage(0);
+    if (this.paginator) {
+      this.page = 0;
+      this.paginator.changePage(0);
+    } else {
+      this.loadTransactions();
+    }
   }
 }
