@@ -11,8 +11,6 @@ import { CurrencyService } from '../../services/currency.service';
   styleUrl: './settings.component.css',
 })
 export class SettingsComponent implements OnInit {
-  public exchangeRateDateUpdate: any;
-
   constructor(
     public userContext: UserContextService,
     private currencyService: CurrencyService
@@ -20,14 +18,6 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.userContext.fetchDefaultCurrency();
-
-    this.currencyService
-      .getExchangeRateDateUpdate(this.userContext.defaultCurrency)
-      .subscribe({
-        next: (date: any) => {
-          this.exchangeRateDateUpdate = date;
-        },
-      });
   }
 
   onCurrencyChange(event: any) {

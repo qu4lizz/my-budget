@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { environment } from '../environment/environment';
 import { HttpClient } from '@angular/common/http';
+import { CurrencyService } from './currency.service';
 
 const baseUrl = environment.api_url + '/settings';
 
@@ -8,9 +9,13 @@ const baseUrl = environment.api_url + '/settings';
   providedIn: 'root',
 })
 export class UserContextService implements OnInit {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private currencyService: CurrencyService
+  ) {}
 
   public defaultCurrency: string = 'eur';
+  public exchangeRateDateUpdate: any;
 
   ngOnInit(): void {
     this.fetchDefaultCurrency();
@@ -20,6 +25,7 @@ export class UserContextService implements OnInit {
     return this.http
       .get(baseUrl + '/default-currency')
       .subscribe((data: any) => {
+        this.fetchDateUpdate(data.defaultCurrency);
         this.defaultCurrency = data.defaultCurrency;
       });
   }
@@ -28,7 +34,18 @@ export class UserContextService implements OnInit {
     return this.http
       .put(baseUrl + '/default-currency', { defaultCurrency: currency })
       .subscribe({
-        next: (data: any) => (this.defaultCurrency = currency),
+        next: (data: any) => {
+          this.fetchDateUpdate(currency);
+          this.defaultCurrency = currency;
+        },
+      });
+  }
+
+  private fetchDateUpdate(currency: string) {
+    return this.currencyService
+      .getExchangeRateDateUpdate(currency)
+      .subscribe((date: any) => {
+        this.exchangeRateDateUpdate = date;
       });
   }
 

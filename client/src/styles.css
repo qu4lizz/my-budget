@@ -19,23 +19,6 @@ body {
   padding-right: 10rem;
 }
 
-@media (max-width: 1199px) {
-  html {
-    font-size: 14px;
-  }
-  .padding-x {
-    padding-left: 5rem;
-    padding-right: 5rem;
-  }
-  .padding-x-transactions {
-    padding-left: 5rem;
-    padding-right: 5rem;
-  }
-  .content {
-    margin-bottom: calc(2rem + 77px);
-  }
-}
-
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -52,4 +35,21 @@ body {
   bottom: 0;
   right: 0;
   width: 100%;
+}
+
+@media (max-width: 1199px) {
+  html {
+    font-size: 14px;
+  }
+  .padding-x {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  .padding-x-transactions {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  .content {
+    margin-bottom: calc(2rem + 77px);
+  }
 }
