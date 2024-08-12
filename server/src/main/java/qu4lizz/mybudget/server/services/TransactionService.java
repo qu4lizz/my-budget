@@ -39,9 +39,12 @@ public class TransactionService {
         if (currencyService.isValidCurrency(request.getCurrency())) {
             AccountEntity account = accountRepository.findById(request.getIdAccount()).orElseThrow(() -> new BadRequestException("Invalid account"));
 
-            BigDecimal exchangedAmount = currencyService.getExchangedAmount(request.getCurrency(), account.getCurrency(), request.getAmount());
+            BigDecimal amount = request.getAmount();
+            if (!request.getCurrency().equals(account.getCurrency())) {
+                amount = currencyService.getExchangedAmount(request.getCurrency(), account.getCurrency(), request.getAmount());
+            }
 
-            BigDecimal newBalance = account.getBalance().add(exchangedAmount);
+            BigDecimal newBalance = account.getBalance().add(amount);
 
             if (newBalance.compareTo(BigDecimal.ZERO) < 0) {
                 throw new BadRequestException("Insufficient balance");
@@ -54,7 +57,7 @@ public class TransactionService {
             transaction.setAccount(account);
             transactionRepository.save(transaction);
 
-            account.setBalance(account.getBalance().add(exchangedAmount));
+            account.setBalance(account.getBalance().add(amount));
             accountRepository.save(account);
         }
         else throw new BadRequestException("Invalid currency");
