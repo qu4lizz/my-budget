@@ -1,5 +1,7 @@
 @if (loading) {
 <app-loading-spinner></app-loading-spinner>
+} @else { @if (error) {
+<app-error></app-error>
 } @else {
 <div class="padding-x">
   @if (accounts.length > 0) {
@@ -31,4 +33,4 @@
   ></app-new-account-dialog>
   }
 </div>
-}
+} }

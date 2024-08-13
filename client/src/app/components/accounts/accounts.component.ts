@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SingleAccountComponent } from './single-account/single-account.component';
 import { Account } from '../../interfaces/Account';
 import { ButtonModule } from 'primeng/button';
@@ -9,6 +9,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
 import { RefreshService } from '../../services/refresh.service';
 import { Subscription } from 'rxjs';
+import { ErrorComponent } from '../shared/error/error.component';
 
 @Component({
   selector: 'app-accounts',
@@ -20,11 +21,12 @@ import { Subscription } from 'rxjs';
     NewAccountDialogComponent,
     PaginatorModule,
     LoadingSpinnerComponent,
+    ErrorComponent,
   ],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.css',
 })
-export class AccountsComponent implements OnInit {
+export class AccountsComponent implements OnInit, OnDestroy {
   public accounts: Account[] = [];
 
   dialogVisible: boolean = false;
@@ -34,6 +36,7 @@ export class AccountsComponent implements OnInit {
   public totalRecords: number = 0;
 
   public loading: boolean = true;
+  public error: boolean = false;
 
   private refreshSubscription!: Subscription;
 
@@ -50,6 +53,12 @@ export class AccountsComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.refreshSubscription) {
+      this.refreshSubscription.unsubscribe();
+    }
+  }
+
   onPageChange(event: any) {
     this.page = event.page;
     this.size = event.rows;
@@ -63,7 +72,9 @@ export class AccountsComponent implements OnInit {
         this.accounts = data.content;
         this.totalRecords = data.totalElements;
       },
-      error: (err: any) => {},
+      error: (err: any) => {
+        this.error = true;
+      },
       complete: () => (this.loading = false),
     });
   }

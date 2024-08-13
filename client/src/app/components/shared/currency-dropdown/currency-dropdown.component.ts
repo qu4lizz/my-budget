@@ -41,10 +41,6 @@ export class CurrencyDropdownComponent implements OnInit {
           };
         });
       },
-      error(err) {
-        // TODO: handle error
-        console.log(err);
-      },
     });
   }
 

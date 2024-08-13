@@ -1,6 +1,9 @@
 <div class="wrapper">
-  <div class="content">
+  <div [ngStyle]="{ 'margin-bottom.px': footerHeight }">
     <app-navigation-layout></app-navigation-layout>
   </div>
-  <app-transaction-footer class="footer"></app-transaction-footer>
+  <app-transaction-footer
+    (footerHeightChanged)="setFooterHeight($event)"
+    class="footer"
+  ></app-transaction-footer>
 </div>
