@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { RefreshService } from '../../services/refresh.service';
 import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
 import { Paginator, PaginatorModule } from 'primeng/paginator';
+import { ErrorComponent } from '../shared/error/error.component';
 
 @Component({
   selector: 'app-transactions',
@@ -24,6 +25,7 @@ import { Paginator, PaginatorModule } from 'primeng/paginator';
     DropdownModule,
     LoadingSpinnerComponent,
     PaginatorModule,
+    ErrorComponent,
   ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
@@ -40,12 +42,11 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   public first: number = 0;
 
   public loading: boolean = true;
+  public error: boolean = false;
 
   private accountId?: number;
 
   private refreshSubscription!: Subscription;
-
-  public screenWidth: any;
 
   constructor(
     private transactionService: TransactionService,
@@ -62,20 +63,14 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
     this.accountService.getAllAccounts().subscribe({
       next: (accounts: any) => (this.accounts = accounts),
+      error: (err: any) => (this.error = true),
     });
-
-    this.screenWidth = window.innerWidth;
   }
 
   ngOnDestroy(): void {
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();
     }
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onWindowResize() {
-    this.screenWidth = window.innerWidth;
   }
 
   loadTransactions() {
@@ -90,6 +85,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
             this.transactions = data.content;
             this.totalRecords = data.totalElements;
           },
+          error: (err: any) => (this.error = true),
         });
     } else {
       this.transactionService.getTransactions(query).subscribe({
@@ -97,6 +93,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
           this.transactions = data.content;
           this.totalRecords = data.totalElements;
         },
+        error: (err: any) => (this.error = true),
         complete: () => (this.loading = false),
       });
     }

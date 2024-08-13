@@ -1,5 +1,7 @@
 @if (loading) {
 <app-loading-spinner></app-loading-spinner>
+} @else { @if (error) {
+<app-error></app-error>
 } @else {
 <div
   class="padding-x-transactions flex flex-column xl:flex-row w-full align-items-center xl:align-items-start"
@@ -48,4 +50,4 @@
     ></p-dropdown>
   </div>
 </div>
-}
+} }
