@@ -45,9 +45,6 @@ export class SingleAccountComponent implements OnInit, OnChanges {
       )
       .then((value) => {
         this.exchangedValue = value;
-      })
-      .catch((err) => {
-        console.log(err);
       });
   }
 }
